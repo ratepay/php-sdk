@@ -4,7 +4,7 @@
 |Module | RatePAY PHP SDK
 |------|----------
 |Author | Aarne Welschlau
-|Version | `0.9.0`
+|Version | `0.9.2`
 |Link | http://www.ratepay.com
 |Mail | integration@ratepay.com
 
