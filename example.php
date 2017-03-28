@@ -59,7 +59,13 @@ $mbJson->setJson('{
 // Initiation of generic RequestBuilder object.
 $rb = new RatePAY\RequestBuilder(true); // true == Sandbox mode
 
-// $rb->getAvailableRequests(); // Returns a list of all available RatePAY gateway requests (covered by library) {array}
+// $rb->getAvailableRequests();     // Returns a list of all available RatePAY gateway requests (covered by library) {array}
+
+// $rb->setConnectionTimeout(10000); // Sets the number of milliseconds to wait while trying to connect {integer} | default:0 (no timeout)
+// $rb->setExecutionTimeout(10000);  // Sets the maximum number of milliseconds to allow cURL functions to execute {integer} | default:0 (no timeout)
+// $rb->setConnectionRetries(3);     // Sets the number of retries {integer} | default:0
+// $rb->setRetryDelay(500);          // Sets the delay between retries in milliseconds {integer} | default:0
+// $rb->setConnectionTimeout(10000)->setExecutionTimeout(10000); // Chaining is possible
 
 // Call a request by the example of PaymentInit
 $paymentInit = $rb->callPaymentInit($mbArr); // Initializes transaction
