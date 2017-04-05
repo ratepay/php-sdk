@@ -1,0 +1,114 @@
+<table class="table table-striped">
+    <tr>
+        <td class="text-center text-uppercase" colspan="2">
+            {{ rp_personal_calculation }}
+        </td>
+    </tr>
+
+    <tr>
+        <td class="warning small text-center" colspan="2">
+            {{ rp_responseText }}
+        </td>
+    </tr>
+
+    <tr>
+        <td class="rp-installment-plan-title">
+            {{ rp_cash_payment_price }}
+            <p class="rp-installment-plan-description small">{{ rp_mouseover_cash_payment_price }}</p>
+        </td>
+        <td class="text-right">
+            {{ rp_amount }} &euro;
+        </td>
+    </tr>
+
+    <tr>
+        <td class="rp-installment-plan-title">
+            {{ rp_service_charge }}
+            <p class="rp-installment-plan-description small">{{ rp_mouseover_service_charge }}</p>
+        </td>
+        <td class="text-right">
+            {{ rp_serviceCharge }} &euro;
+        </td>
+    </tr>
+
+    <tr>
+        <td class="rp-installment-plan-title">
+            {{ rp_effective_rate }}
+            <p class="rp-installment-plan-description small">{{ rp_mouseover_effective_rate }}</p>
+        </td>
+        <td class="text-right">
+            {{ rp_annualPercentageRate }} %
+        </td>
+    </tr>
+
+    <tr>
+        <td class="rp-installment-plan-title">
+            {{ rp_debit_rate }}
+            <p class="rp-installment-plan-description small">{{ rp_mouseover_debit_rate }}</p>
+        </td>
+        <td class="text-right">
+            {{ rp_monthlyDebitInterest }} %
+        </td>
+    </tr>
+
+    <tr>
+        <td class="rp-installment-plan-title">
+            {{ rp_interest_amount }}
+            <p class="rp-installment-plan-description small">{{ rp_mouseover_interest_amount }}</p>
+        </td>
+        <td class="text-right">
+            {{ rp_interestAmount }} &euro;
+        </td>
+    </tr>
+
+    <tr>
+        <td class="rp-installment-plan-title">
+            {{ rp_total_amount }}
+            <p class="rp-installment-plan-description small">{{ rp_mouseover_total_amount }}</p>
+        </td>
+        <td class="text-right">
+            {{ rp_totalAmount }} &euro;
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">
+        </td>
+    </tr>
+
+    <tr>
+        <td class="rp-installment-plan-title">
+            {{ rp_duration_time }}
+            <p class="rp-installment-plan-description small">{{ rp_mouseover_duration_time }}</p>
+        </td>
+        <td class="text-right">
+            <b>{{ rp_numberOfRatesFull }} {{ rp_months }}</b>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="rp-installment-plan-title">
+            {{ rp_numberOfRates }} {{ rp_duration_month }}
+            <p class="rp-installment-plan-description small">{{ rp_mouseover_duration_month }}</p>
+        </td>
+        <td class="text-right">
+            <b>{{ rp_rate }} &euro;</b>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="rp-installment-plan-title">
+            {{ rp_last_rate }}
+            <p class="rp-installment-plan-description small">{{ rp_mouseover_last_rate }}</p>
+        </td>
+        <td class="text-right">
+            <b>{{ rp_lastRate }} &euro;</b>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="text-right small" colspan="2">
+            {{ rp_calulation_example }}
+        </td>
+    </tr>
+</table>

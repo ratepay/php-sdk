@@ -1,0 +1,15 @@
+.rp-installment-plan-title:hover p {
+    display: block;
+}
+
+.rp-installment-plan-description {
+    display: none;
+}
+
+.rp-row-space {
+    margin-bottom: 10px;
+}
+
+.rp-link {
+    cursor: pointer;
+}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Installment Calculator</title>
+
+    <link href="resources\style.css" media="all" rel="stylesheet" type="text/css" />
+    <!--<link href="https://www.ratepay.com/wp-content/themes/ratepay/build/css/common.css" media="all" rel="stylesheet" type="text/css" />-->
+    <link href="resources/ratepay-bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="resources/ratepay-style.css" media="all" rel="stylesheet" type="text/css" />
+
+    <script language="JavaScript" src="resources/ratepay-jquery-3.2.0.min.js"></script>
+    <script>
+        var $rp = jQuery.noConflict(); // Prevent conflicts by creating an alias $rp to the jQuery function
+
+        var rpInstallmentController = "installmentPlan.php"; // Path to installment plan controller (for HTTP request). Change path for your local implementation
+
+        var rpBankTransferAllowed = "{{ rp_paymentType_bankTransfer }}";
+        var rpBankTransferFirstday = "{{ rp_paymentType_bankTransfer_firstday }}";
+        var rpDirectDebitAllowed = "{{ rp_paymentType_directDebit }}";
+        var rpDirectDebitFirstday = "{{ rp_paymentType_directDebit_firstday }}";
+    </script>
+    <script language="JavaScript" src="resources/ratepay-installment.js"></script>
+    <script language="JavaScript" src="resources/ratepay-directdebit.js"></script>
+
+</head>
+<body>
+
+<!-- Hidden input elements with data necessary for later PaymentRequest -->
+<input type="hidden" name="rp-calculation-amount" id="rp-calculation-amount" value="2000" /><!-- Current order amount -->
+<input type="hidden" name="rp-calculation-type" id="rp-calculation-type" />
+<input type="hidden" name="rp-calculation-value" id="rp-calculation-value" />
+<input type="hidden" name="rp-payment-type" id="rp-payment-type" />
+<input type="hidden" name="rp-payment-firstday" id="rp-payment-firstday" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            {{ rp_calculation_intro_part1 }} {{ rp_calculation_intro_part2 }} {{ rp_calculation_intro_part3 }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center" id="firstInput">
+                    <h2>{{ rp_runtime_title }}</h2>
+                    {{ rp_runtime_description }}
+                </div>
+
+                <div class="panel-body">
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        @loop
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button class="btn btn-default rp-btn-runtime" role="button" data-bind="{{ rp_allowedMonths }}">{{ rp_allowedMonths }}</button>
+                        </div>
+                        @endloop
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center" id="secondInput">
+                    <h2>{{ rp_rate_title }}</h2>
+                    {{ rp_rate_description }}
+                </div>
+
+                <div class="panel-body">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon">&euro;</span>
+                        <input type="text" id="rp-rate-value" class="form-control" aria-label="Amount" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default rp-btn-rate" type="button" disabled>{{ rp_calculate_rate }}</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" id="rpResultContainer"></div>
+    </div>
+
+    <div class="row rp-sepa-form">
+        <hr/>
+    </div>
+
+    <div class="row rp-row-space rp-sepa-form">
+        <table class="rp-sepa-table small">
+            <tr>
+                <td colspan="2">
+                    {{ wcd_address }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ rp_creditor }}
+                </td>
+                <td>
+                    {{ wcd_creditor_id }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ rp_mandate }}&nbsp;
+                </td>
+                <td>
+                    {{ rp_mandate_ref }}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="row rp-sepa-form small rp-row-space">
+        {{ wcd_sepa_notice_block }}
+    </div>
+
+    <div class="row rp-sepa-form">
+        <form>
+            <input type="hidden" name="rp-payment-type" id="rp-payment-type" />
+
+            <div class="form-group">
+                <label class="">{{ rp_account_holder }}</label>
+                <input type="text" class="form-control disabled" value="Alice Nobodyknows" disabled /><!-- Show account holder name = billing address firstname and lastname -->
+            </div>
+            <!-- Account number is only allowed for customers with german billing address. IBAN must be used for all others -->
+            <div class="form-group">
+                <label class="">{{ rp_iban }}</label>
+                <input type="text" class="form-control required" id="rp-iban-account-number" name="rp-iban-account-number" />
+            </div>
+            <!-- Bank code is only necesarry if account number (no iban) is set -->
+            <!--<div class="form-group" id="rp-form-bank-code">
+                <label class="small">{{ rp_bank_code }}</label>
+                <input type="text" class="form-control" id="rp-bank-code" name="rp-bank-code" />
+            </div>-->
+        </form>
+    </div>
+
+    <!--<div class="row rp-row-space small rp-sepa-form" id="rp-show-sepa-agreement">
+        <a class="rp-link">{{ rp_sepa_link }}</a>
+    </div>-->
+    <div class="row rp-row-space small rp-sepa-form" id="rp-sepa-agreement">
+        <input type="checkbox" name="rp-sepa-aggreement" id="rp-sepa-aggreement" class="required" />
+        {{ wcd_sepa_terms_block_1 }}
+        <br><br>
+        {{ wcd_sepa_terms_please_note }}: {{ wcd_sepa_terms_block_2 }}
+        <br/><br/>
+        {{ wcd_sepa_terms_block_3 }}
+    </div>
+
+    <!-- Switching between payment type direct debit and bank transfer (which requires no sepa form) is only allowed if  -->
+    <div class="row small rp-payment-type-switch" id="rp-switch-payment-type-bank-transfer">
+        <a class="rp-link">{{ rp_switch_payment_type_bank_transfer }}</a>
+    </div>
+    <div class="row small rp-payment-type-switch" id="rp-switch-payment-type-direct-debit">
+        <a class="rp-link">{{ rp_switch_payment_type_direct_debit }}</a>
+    </div>
+</div>
+
+</body>
+</html>
