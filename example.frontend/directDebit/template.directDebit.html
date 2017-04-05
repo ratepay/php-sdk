@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>SEPA Formular</title>
+
+    <link href="resources\style.css" media="all" rel="stylesheet" type="text/css" />
+    <!--<link href="https://www.ratepay.com/wp-content/themes/ratepay/build/css/common.css" media="all" rel="stylesheet" type="text/css" />-->
+    <link href="resources/ratepay-bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="resources/ratepay-style.css" media="all" rel="stylesheet" type="text/css" />
+
+    <script language="JavaScript" src="resources/ratepay-jquery-3.2.0.min.js"></script>
+    <script>
+        var $rp = jQuery.noConflict(); // Prevent conflicts by creating an alias $rp to the jQuery function
+    </script>
+    <script language="JavaScript" src="resources/ratepay-directdebit.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row rp-row-space rp-sepa-form">
+        <table class="rp-sepa-table small">
+            <tr>
+                <td colspan="2">
+                    {{ rp_address }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ rp_creditor }}
+                </td>
+                <td>
+                    {{ rp_creditor_id }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ rp_mandate }}&nbsp;
+                </td>
+                <td>
+                    {{ rp_mandate_ref }}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="row rp-sepa-form">
+        <form>
+            <input type="hidden" name="rp-payment-type" id="rp-payment-type" />
+
+            <div class="form-group">
+                <label class="small">{{ rp_account_holder }}</label>
+                <input type="text" class="form-control disabled" value="Alice Nobodyknows" disabled /><!-- Show account holder name = billing address firstname and lastname -->
+            </div>
+            <!-- Account number is only allowed for customers with german billing address. IBAN must be used for all others -->
+            <div class="form-group">
+                <label class="small">{{ rp_iban }}</label>
+                <input type="text" class="form-control" id="rp-iban-account-number" name="rp-iban-account-number" />
+            </div>
+            <!-- Bank code is only necesarry if account number (no iban) is set -->
+            <!--<div class="form-group" id="rp-form-bank-code">
+                <label class="small">{{ rp_bank_code }}</label>
+                <input type="text" class="form-control" id="rp-bank-code" name="rp-bank-code" />
+            </div>-->
+        </form>
+    </div>
+
+    <div class="row rp-row-space small rp-sepa-form" id="rp-show-sepa-agreement">
+        <a class="rp-link">{{ rp_sepa_link }}</a>
+    </div>
+    <div class="row rp-row-space small rp-sepa-form" id="rp-sepa-agreement">
+        {{ rp_sepa_terms_block_1 }}
+        {{ rp_address }}
+        {{ rp_sepa_terms_block_2 }}
+        <a target="_blank" href="{{ rp_data_privacy_policy_url }}">{{ rp_data_privacy_policy }}</a>
+        {{ rp_sepa_terms_block_3 }}
+        <br/><br/>
+        <strong>{{ rp_sepa_notice_block_1 }}</strong>
+        <br/>
+        {{ rp_sepa_notice_block_2 }}
+        <br/>
+        {{ rp_sepa_notice_block_3 }}
+    </div>
+</div>
+
+</body>
+</html>
