@@ -22,6 +22,21 @@ $rp(function() {
         }
     });
 
+    $rp(document).on("click","#rp-show-installment-plan-details", function() {
+        $rp('.rp-installment-plan-details').show();
+        $rp('.rp-installment-plan-no-details').hide();
+        $rp(this).hide();
+        $rp('#rp-hide-installment-plan-details').show();
+    });
+
+    $rp(document).on("click","#rp-hide-installment-plan-details", function() {
+        $rp('.rp-installment-plan-details').hide();
+        $rp('.rp-installment-plan-no-details').show();
+        $rp(this).hide();
+        $rp('#rp-show-installment-plan-details').show();
+    });
+
+
     $rp("#rp-payment-firstday").val((rpDirectDebitAllowed == "1") ? rpDirectDebitFirstday : rpBankTransferFirstday);
 });
 

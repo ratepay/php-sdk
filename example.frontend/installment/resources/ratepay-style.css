@@ -1,9 +1,15 @@
-.rp-installment-plan-title:hover p {
-    display: block;
-}
-
+.rp-installment-plan-details,
+#rp-hide-installment-plan-details,
 .rp-installment-plan-description {
     display: none;
+}
+
+.rp-details-icon {
+    height: 7px;
+}
+
+.rp-installment-plan-title:hover p {
+    display: block;
 }
 
 .rp-row-space {
