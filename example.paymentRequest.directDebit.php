@@ -52,6 +52,7 @@ $contentArr = [
         //'NameSuffix' => "Sen.",
         'DateOfBirth' => "1975-12-17",
         //'Nationality' => "DE",
+        //'Language' => "DE",
         'IpAddress' => "127.0.0.1",
         'Addresses' => [
             [
