@@ -148,10 +148,13 @@ if (!$paymentRequest->isSuccessful()) die("PaymentRequest not successful");
 
 // The PaymentRequest response object provides following methods:
 // getTransactionId();   // Returns transaction id (unique transaction identifier) {string}
+// getDescriptor();      // Returns descriptor (unique bank transfer reference) {string}
 // isRetryAdmitted();    // Returns whether retry is admitted {boolean}
 // getCustomerMessage(); // Returns customer message {string}
 
 var_dump($paymentRequest->getTransactionId());
+// The RatePAY descriptor is the reference used on bank wire transfer
+var_dump($paymentRequest->getDescriptor());
 // If the order gets rejected by RatePAY because of invalid inputs (like invalid zip code or iban), a retry of order is allowed.
 var_dump($paymentRequest->isRetryAdmitted());
 // If retry of order is allowed, the there will be a customer message with further information.
