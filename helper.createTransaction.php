@@ -72,21 +72,11 @@ $mbContent->setArray([
                     'Discount' => 10
                 ]
             ]
-        ],
-        'Shipping' => [
-            'Description' => "Shipping costs",
-            'UnitPriceGross' => 4.95,
-            'TaxRate' => 19,
-        ],
-        'Discount' => [
-            'Description' => "Discount 20 EUR",
-            'UnitPriceGross' => 20,
-            'TaxRate' => 19,
         ]
     ],
     'Payment' => [
         'Method' => "invoice",
-        'Amount' => 464.95
+        'Amount' => 480
     ]
 ]);
 
