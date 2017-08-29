@@ -14,19 +14,20 @@ composer install
 ```
 
 ### How to start
+###### To run the examples, insert your (received by RatePAY Customer Integration Team) credentials into 'ratepay_credentials.php'.
 
 Find the basic usage of the different API calls and operations of the API library explained in the example files. The *example.php* explains the basic usage of the library.
 Following table describes the basic (transaction-driven) operations in chronological order.
 
-|Order|File|Operation/+*Subtype*|Information|Description|
+|#|File|Operation/+*Subtype*|Information|Description|
 |-|-|-|-|-|
-|#1|example.php|Payment Init|Head|Shows the basic functionality of the RatePAY library|
-|#2|example.paymentRequest.*.php|Payment Request|Head, customer, shopping basket, payment|Call for authorization. Different examples for all payment methods|
-|#3|example.paymentChange.cancellation.php|Payment Change - *Cancellation*|Head, shopping basket|Informs RatePAY of a cancelled order or item|
-|#4|example.confirmationDeliver.php|Confirmation Deliver|Head, shopping basket|Informs RatePAY of a shipped order or item|
-|#5|example.paymentChange.return.php|Payment Change - *Return*|Head, shopping basket|Informs RatePAY of a returned order or item|
-|#6|example.paymentChange.changeOrder.php|Payment Change - *Change Order*|Head, shopping basket|Informs RatePAY of a totally changed shopping basket|
-|#7|example.paymentChange.credit.php|Payment Change - *Credit*|Head, shopping basket|Informs RatePAY of a subsequent refund or fee|
+|1|example.php|Payment Init|Head|Shows the basic functionality of the RatePAY library|
+|2|example.paymentRequest.*.php|Payment Request|Head, customer, shopping basket, payment|Call for authorization. Different examples for all payment methods|
+|3|example.paymentChange.cancellation.php|Payment Change - *Cancellation*|Head, shopping basket|Informs RatePAY of a cancelled basket or article|
+|4|example.confirmationDeliver.php|Confirmation Deliver|Head, shopping basket|Informs RatePAY of a shipped basket or article|
+|5|example.paymentChange.return.php|Payment Change - *Return*|Head, shopping basket|Informs RatePAY of a returned basket or article|
+|6|example.paymentChange.changeOrder.php|Payment Change - *Change Order*|Head, shopping basket|Informs RatePAY of a totally changed shopping basket|
+|7|example.paymentChange.credit.php|Payment Change - *Credit*|Head, shopping basket|Informs RatePAY of a subsequent refund or fee|
 
 Following table describes optional and transaction-independent operations.
 
@@ -38,5 +39,3 @@ Following table describes optional and transaction-independent operations.
 |example.configurationRequest.php|Configuration Request|Returns the merchant installment configuration from RatePAY|
 |example.calculationRequest.php|Calculation Request - *calculation-by-time*/*calculation-by-rate*|Calculates an installment plan. Subtype has to be *calculation-by-rate* which calculates by a rate defined by the customer or *calculation-by-time* which calculates by a duration chosen by the customer|
 |example.profileRequest.php|Profile Request|Returns the merchant configuration from RatePAY, includes the installment configuration|
-
-**To run the examples, insert your (received by RatePAY Customer Integration Team) credentials into 'ratepay_credentials.php'.**
