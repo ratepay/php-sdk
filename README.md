@@ -14,9 +14,9 @@ composer install
 ```
 
 ### How to start
-###### To run the examples, insert your (received by RatePAY Customer Integration Team) credentials into 'ratepay_credentials.php'.
 
 Find the basic usage of the different API calls and operations of the API library explained in the example files. The *example.php* explains the basic usage of the library.
+###### To run the examples, insert your (received by RatePAY Customer Integration Team) credentials into 'ratepay_credentials.php'.
 Following table describes the basic (transaction-driven) operations in chronological order.
 
 |#|File|Operation/+*Subtype*|Information|Description|
