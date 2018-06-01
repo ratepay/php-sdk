@@ -18,7 +18,11 @@ $mbHead->setArray([
         'ProfileId' => PROFILE_ID,
         'Securitycode' => SECURITYCODE
     ],
-    'TransactionId' => $transactionId
+    'TransactionId' => $transactionId,
+    'External' => [ // If order id or customer id isn't created at the time of Payment Request use Payment Confirm to hand missing information later
+        'MerchantConsumerId' => "1234567", // Customer Id
+        'OrderId' => "xyzabc"
+    ]
 ]);
 
 $rb = new RatePAY\RequestBuilder(true); // Sandbox mode = true
