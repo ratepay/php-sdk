@@ -83,12 +83,18 @@ $contentArr = [
         ],
         'Contacts' => [
             'Email' => "alice@umbrella.tld",
-            //'Mobile' => "0123 4567890",
+            //'Mobile' => [
+                //'AreaCode' => "0172",
+                //'DirectDial' => "0172 3456789"
+            //],
             'Phone' => [
                 //'AreaCode' => "012",
                 'DirectDial' => "012 3456789"
             ],
-            //'Fax' => "012 3456777",
+            //'Fax' => [
+                //'AreaCode' => "012",
+                //'DirectDial' => "012 3456789"
+            //],
         ],
         'BankAccount' => [ // In case of payment method 'elv'
             'Owner' => "Alice Nobodyknows",
