@@ -1,5 +1,8 @@
 .rp-installment-plan-details,
 #rp-hide-installment-plan-details,
+#rp-hide-secci-details,
+#rp-hide-secci-choose-email,
+#rp-ccd2-container,
 .rp-installment-plan-description {
     display: none;
 }
@@ -18,4 +21,57 @@
 
 .rp-link {
     cursor: pointer;
+}
+.rp-icon { display: inline-flex; vertical-align: -2px; margin-right: 4px; }
+.rp-ccd2-heading { display: flex; align-items: center; gap: 8px; }
+.rp-ccd2-btn-row { display: flex; }
+.rp-ccd2-btn-row .btn-group { flex: 0 0 50%; max-width: 50%; }
+.rp-ccd2-btn-row .btn-group .btn { width: 100%; }
+.rp-ccd2-info-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    color: #3f6fd1;
+}
+
+#rp-ccd2-container {
+    margin-top: 1rem;
+}
+
+.rp-ccd2-panel {
+    background: #eef1fb;
+    border: 1px solid #d9def5;
+    border-radius: 6px;
+}
+.rp-ccd2-email-edit-row { margin-top: 10px; max-width: 420px; }
+.rp-ccd2-more { margin-bottom: 0; }
+.rp-ccd2-more .rp-icon { margin-left: 4px; margin-right: 0; }
+
+.rp-payment-method-list { border-top: 1px solid #e5e5e5; margin-top: 20px; }
+.rp-payment-method {
+    padding: 14px 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+.rp-payment-method-row { display: flex; align-items: center; }
+.rp-payment-method label { font-weight: 700; margin: 0 0 0 8px; cursor: pointer; }
+.rp-payment-method input[type="radio"] { margin: 0; }
+.rp-payment-method-badge {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    font-style: italic;
+    font-weight: 700;
+    color: #0070ba;
+}
+.rp-payment-method-detail {
+    margin: 6px 0 0 26px;
+    color: #666;
+}
+
+#rp-ccd2-more-info {
+    margin-top: 1rem;
 }

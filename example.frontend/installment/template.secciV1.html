@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Method Selection</title>
+
+    <link href="resources/ratepay-bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="resources/ratepay-style.css" media="all" rel="stylesheet" type="text/css" />
+
+    <!-- JS handling for the CCD2/SECCI logic (email edit toggle, "Mehr erfahren" toggle) and for expanding
+         the selected payment method's detail area. Plain vanilla JS, kept as a self-contained example block
+         so it can be copied into the actual implementation file as needed. -->
+    <script>
+        function sendSecciRequest(paymentType) {
+            const params = new URLSearchParams();
+            params.append('method', paymentType);
+            params.append('deliverymethod', 'EMAIL');
+            params.append('email', document.getElementById('rp-ccd2-email-input').value);
+            params.append('calculationAmount', 2000);
+            params.append('calculationType', 'time');
+            params.append('calculationValue', 3);
+
+            fetch('secciRequest.php', {
+                method: 'POST',
+                body: params
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                return response.json();
+            })
+            .then(data => {
+                if (data.success === false) {
+                    console.error("Fehler beim Senden der SECCI-Anfrage:", data.message);
+                    return;
+                }
+
+                console.log("SECCI-Anfrage erfolgreich verarbeitet:", data.message);
+            })
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var ccd2ChangeEmailLink = document.getElementById('rp-ccd2-change-email-link');
+            var ccd2EmailEditRow = document.getElementById('rp-ccd2-email-edit-row');
+            var ccd2EmailDisplay = document.getElementById('rp-ccd2-email-display');
+            var ccd2EmailInput = document.getElementById('rp-ccd2-email-input');
+            var ccd2EmailSaveBtn = document.getElementById('rp-ccd2-email-save');
+
+            if (ccd2ChangeEmailLink && ccd2EmailEditRow) {
+                ccd2ChangeEmailLink.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    ccd2ChangeEmailLink.style.display = 'none';
+                    ccd2EmailEditRow.style.display = '';
+                    ccd2EmailInput.focus();
+                });
+            }
+
+            if (ccd2EmailSaveBtn) {
+                ccd2EmailSaveBtn.addEventListener('click', function () {
+                    ccd2EmailDisplay.textContent = ccd2EmailInput.value;
+                    ccd2EmailEditRow.style.display = 'none';
+                    ccd2ChangeEmailLink.style.display = '';
+                });
+            }
+
+            // --- CCD2 / SECCI: "Mehr erfahren" expand/collapse ---
+            var ccd2LearnMoreLink = document.getElementById('rp-ccd2-learn-more');
+            var ccd2MoreInfo = document.getElementById('rp-ccd2-more-info');
+
+            if (ccd2LearnMoreLink && ccd2MoreInfo) {
+                ccd2LearnMoreLink.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    var isHidden = ccd2MoreInfo.style.display === 'none' || ccd2MoreInfo.style.display === '';
+                    ccd2MoreInfo.style.display = isHidden ? 'block' : 'none';
+                    ccd2LearnMoreLink.classList.toggle('rp-ccd2-more-open', isHidden);
+                });
+            }
+
+            // --- Payment method selection: expand the detail area of the selected method, collapse the rest ---
+            var paymentMethodRadios = document.querySelectorAll('input[name="rp-payment-method-radio"]');
+            var paymentTypeHidden = document.getElementById('rp-payment-type');
+            var selectedPaymentType;
+            var sendSecciWhitelist = ['invoice', 'installment'];
+            var requestSent = false;
+
+            paymentMethodRadios.forEach(function (radio) {
+                radio.addEventListener('change', function () {
+                    document.querySelectorAll('.rp-payment-method-detail').forEach(function (detail) {
+                        detail.style.display = 'none';
+                    });
+
+                    var detail = document.getElementById(radio.id + '-detail');
+                    if (detail) {
+                        detail.style.display = 'block';
+                    }
+
+                    if (paymentTypeHidden) {
+                        selectedPaymentType = radio.getAttribute('data-bind');
+                        paymentTypeHidden.value = selectedPaymentType;
+
+                        if (requestSent === false && sendSecciWhitelist.includes(selectedPaymentType)) {
+                            sendSecciRequest(selectedPaymentType);
+                            requestSent = true;
+                        }
+                    }
+                });
+            });
+
+        });
+    </script>
+
+</head>
+<body>
+
+<!-- Hidden input holding the payment method selected below -->
+<input type="hidden" name="rp-payment-type" id="rp-payment-type" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>{{ rp_secci_payment_methods }}</h2>
+            <hr>
+        </div>
+    </div>
+
+    <!-- CCD2 / SECCI (variant 2): information is sent automatically to the customer's email as soon as a
+         payment method that requires it (invoice, installment) is selected - no manual "send" action. -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel rp-ccd2-panel" id="rp-ccd2-container-v1">
+                <div class="panel-body">
+                    <h3 class="rp-ccd2-heading">
+                        <span class="rp-icon rp-ccd2-info-icon" aria-hidden="true">
+                            <svg viewBox="0 0 16 16" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.3">
+                                <circle cx="8" cy="8" r="7"/>
+                                <line x1="8" y1="7.2" x2="8" y2="11.5"/>
+                                <circle cx="8" cy="4.6" r="0.9" fill="currentColor" stroke="none"/>
+                            </svg>
+                        </span>
+                        {{ rp_secci_header }}
+                    </h3>
+
+                    <p id="rp-ccd2-text">
+                        {{ rp_secci_choose_payment_method }}
+                        <span id="rp-ccd2-email-display">max.mustermann@example.com</span> {{ rp_secci_choose_payment_method2 }}
+                        <a class="rp-link" href="#" id="rp-ccd2-change-email-link">({{ rp_secci_change_email }})</a>
+                    </p>
+
+                    <div class="input-group input-group-sm rp-ccd2-email-edit-row" id="rp-ccd2-email-edit-row" style="display:none;">
+                        <input type="email" class="form-control" id="rp-ccd2-email-input" value="max.mustermann@example.com" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" id="rp-ccd2-email-save">{{ rp_secci_save }}</button>
+                        </span>
+                    </div>
+
+                    <p class="rp-ccd2-more">
+                        <a class="rp-link" href="#" id="rp-ccd2-learn-more">
+                            {{ rp_secci_learn_more }}
+                            <span class="rp-icon rp-icon-chevron" aria-hidden="true">
+                                <svg viewBox="0 0 16 16" width="10" height="10" fill="currentColor">
+                                    <path d="M1.5 4.5a.5.5 0 0 1 .7-.7L8 9.6l5.8-5.8a.5.5 0 1 1 .7.7l-6.15 6.15a.5.5 0 0 1-.7 0L1.5 4.5Z"/>
+                                </svg>
+                            </span>
+                        </a>
+                    </p>
+
+                    <!-- Expanded "Mehr erfahren" content. Kept hidden here; toggled via JS separately. -->
+                    <div class="small" id="rp-ccd2-more-info" style="display:none;">
+                        {{ rp_secci_description }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment method selection -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="rp-payment-method-list">
+                <div class="rp-payment-method" id="rp-payment-method-invoice">
+                    <div class="rp-payment-method-row">
+                        <input type="radio" name="rp-payment-method-radio" id="rp-payment-method-invoice-radio" data-bind="invoice">
+                        <label for="rp-payment-method-invoice-radio">{{ rp_secci_method_invoice }}</label>
+                    </div>
+                    <div class="rp-payment-method-detail" id="rp-payment-method-invoice-radio-detail" style="display:none;">
+                        {{ rp_secci_method_invoice_desc }}
+                    </div>
+                </div>
+
+                <div class="rp-payment-method" id="rp-payment-method-paypal">
+                    <div class="rp-payment-method-row">
+                        <input type="radio" name="rp-payment-method-radio" id="rp-payment-method-paypal-radio" data-bind="paypal">
+                        <label for="rp-payment-method-paypal-radio">PayPal</label>
+                        <span class="rp-payment-method-badge">P</span>
+                    </div>
+                    <div class="rp-payment-method-detail" id="rp-payment-method-paypal-radio-detail" style="display:none;">
+                        {{ rp_secci_method_paypal_desc }}
+                    </div>
+                </div>
+
+                <div class="rp-payment-method" id="rp-payment-method-cod">
+                    <div class="rp-payment-method-row">
+                        <input type="radio" name="rp-payment-method-radio" id="rp-payment-method-cod-radio" data-bind="cod">
+                        <label for="rp-payment-method-cod-radio">{{ rp_secci_method_cod }}</label>
+                    </div>
+                    <div class="rp-payment-method-detail" id="rp-payment-method-cod-radio-detail" style="display:none;">
+                        {{ rp_secci_method_cod_desc }}
+                    </div>
+                </div>
+
+                <div class="rp-payment-method" id="rp-payment-method-installment">
+                    <div class="rp-payment-method-row">
+                        <input type="radio" name="rp-payment-method-radio" id="rp-payment-method-installment-radio" data-bind="installment">
+                        <label for="rp-payment-method-installment-radio">{{ rp_secci_method_installment }}</label>
+                    </div>
+                    <div class="rp-payment-method-detail" id="rp-payment-method-installment-radio-detail" style="display:none;">
+                        {{ rp_secci_method_installment_desc }}<br><br>{{ rp_secci_method_installment_desc2 }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

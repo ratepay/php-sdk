@@ -67,11 +67,10 @@ $mbSecciContent = new RatePAY\ModelBuilder('Content');
 $mbSecciContent->setArray([
     'ShoppingBasket' => $shoppingBasket,
     'Secci' => [
-        'PaymentMethod' => 'INVOICE',
         'DeliveryMethod' => 'EMAIL',
         'Email' => 'abc@gmail.com',
         'Language' => 'DE',
-        'Country' => 'DE',
+        'CountryCode' => 'DE',
     ],
     'Payment' => [
         'Currency' => 'EUR',

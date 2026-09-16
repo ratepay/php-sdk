@@ -8,7 +8,6 @@ require_once "ratepay_credentials.php";
  * The SecciRequest requests the CCD2 SECCI information *
  ****************************************************/
 
-// ProfileRequest needs 'head' only
 $mbHead = new RatePAY\ModelBuilder();
 $mbHead->setArray([
     'SystemId' => "Example",
@@ -62,11 +61,10 @@ $mbContent->setArray([
         ]
     ],
     'Secci' => [
-        'PaymentMethod' => 'INVOICE',
         'DeliveryMethod' => 'EMAIL',
         'Email' => 'abc@gmail.com',
         'Language' => 'DE',
-        'Country' => 'DE',
+        'CountryCode' => 'DE',
     ],
     'Payment' => [
         'Currency' => 'EUR',
@@ -77,11 +75,11 @@ $mbContent->setArray([
 
 $rb = new RatePAY\RequestBuilder(true); // Sandbox mode = true
 
-$profileRequest = $rb->callSecciRequest($mbHead, $mbContent);
+$secciRequest = $rb->callSecciRequest($mbHead, $mbContent);
 
-if (!$profileRequest->isSuccessful()) die("SecciRequest not successful");
+if (!$secciRequest->isSuccessful()) die("SecciRequest not successful");
 
-var_dump($profileRequest->getResult());
+var_dump($secciRequest->getResult());
 
 // The ProfileRequest response object provides no specific methods
 

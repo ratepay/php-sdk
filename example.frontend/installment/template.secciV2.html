@@ -1,0 +1,54 @@
+<!-- CCD2 / SECCI: lets the customer choose how to receive the Standard European Consumer Credit
+     Information before placing the order. JS/API wiring (email dispatch, PDF generation) to follow. -->
+<div class="row rp-row-space" id="rp-ccd2-container">
+    <div class="col-12">
+        <div class="panel panel-default">
+            <div class="panel-body rp-ccd2-panel">
+                <h3 class="rp-ccd2-heading">
+                    <span class="rp-icon rp-ccd2-info-icon" aria-hidden="true">
+                        <svg viewBox="0 0 16 16" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.3">
+                            <circle cx="8" cy="8" r="7"/>
+                            <line x1="8" y1="7.2" x2="8" y2="11.5"/>
+                            <circle cx="8" cy="4.6" r="0.9" fill="currentColor" stroke="none"/>
+                        </svg>
+                    </span>
+                    {{ rp_secci_header }}
+                </h3>
+                <p>
+                <div id="rp-show-secci-choose-text" class="small">
+                    {{ rp_secci_choose_delivery_method }}
+                </div>
+                <div id="rp-hide-secci-choose-email" class="small">
+                    {{ rp_secci_choose_email }} <b>max.mustermann@example.com</b>
+                </div>
+                <a class="rp-link" href="#" id="rp-ccd2-learn-more">{{ rp_secci_learn_more }}</a>
+                </p>
+                <p id="rp-hide-secci-details" class="small">
+                    {{ rp_secci_description }}
+                </p>
+                <div class="btn-group rp-ccd2-btn-row" role="group" aria-label="SECCI Zustellungsart">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary" id="rp-ccd2-btn-email">
+                                <span class="rp-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+                                        <path d="M1.5 3h13A1.5 1.5 0 0 1 16 4.5v7a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 11.5v-7A1.5 1.5 0 0 1 1.5 3Zm0 1a.5.5 0 0 0-.4.2l6.9 4.6 6.9-4.6a.5.5 0 0 0-.4-.2h-13ZM15 5.15 8.28 9.6a.5.5 0 0 1-.56 0L1 5.15V11.5a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5V5.15Z"/>
+                                    </svg>
+                                </span>
+                            {{ rp_secci_get_by_email }}
+                        </button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" id="rp-ccd2-btn-pdf">
+                                <span class="rp-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+                                        <path d="M7.5 1a.5.5 0 0 1 .5.5v6.79l2.15-2.15a.5.5 0 0 1 .7.71l-3 3a.5.5 0 0 1-.7 0l-3-3a.5.5 0 1 1 .7-.71L7 8.29V1.5a.5.5 0 0 1 .5-.5ZM2 11.5a.5.5 0 0 1 .5-.5H5a.5.5 0 0 1 0 1H3v2h10v-2h-2a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-3Z"/>
+                                    </svg>
+                                </span>
+                            {{ rp_secci_download_pdf }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
