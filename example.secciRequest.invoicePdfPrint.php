@@ -81,7 +81,11 @@ if (!$secciRequest->isSuccessful()) die("SecciRequest not successful");
 
 var_dump($secciRequest->getResult());
 
-// The ProfileRequest response object provides no specific methods
+// The SecciRequest response object provides the following methods:
+// getAttestationToken();   // Returns the attestation token which has to be added to the PaymentRequest {string}
+// getDocumentId();         // Returns document id {string}
+// getDocument();           // Returns the document as a string {string}
+// getContentType();        // Returns the content type of the document {string}
 
 /*********************************************************************************************************************************
  * The library throws decidedly exceptions. It's recommended to surround model building and request calls with try-catch-blocks. *
