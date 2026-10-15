@@ -16,7 +16,8 @@ function sendPdfResponse($secciRequest) {
     exit;
 }
 
-function sendJsonResponse($response) {
+function sendJsonResponse($response, $statusCode = 200) {
+    http_response_code($statusCode);
     header('Content-Type: application/json');
 
     echo json_encode($response);
@@ -40,7 +41,7 @@ $secci = [
 if ($deliveryMethod == 'email') {
     $secci['Email'] = $emailAddress;
 } elseif ($deliveryMethod == 'pdf') {
-    $secci['Action'] = 'PRINT';
+    $secci['Action'] = 'DOWNLOAD';
 }
 
 $installmentPlan = null;
@@ -54,7 +55,7 @@ if ($method == 'installment') {
         sendJsonResponse([
             'success' => false,
             'message' => 'SecciRequest not successful',
-        ]);
+        ], 502);
     }
 
     $installmentPlan = json_decode($installmentPlan, true);
@@ -115,22 +116,27 @@ $mbContent->setArray($requestData);
 
 $rb = new RatePAY\RequestBuilder(true); // Sandbox mode = true
 
-$secciRequest = $rb->callSecciRequest($mbHead, $mbContent);
+try {
+    $secciRequest = $rb->callSecciRequest($mbHead, $mbContent);
 
-error_log(date("Y-m-d H:i:s - ").print_r($secciRequest, true).PHP_EOL, 3, __DIR__."/result.log");
+    if (!$secciRequest->isSuccessful()) {
+        sendJsonResponse([
+            'success' => false,
+            'message' => 'SecciRequest not successful',
+        ], 502);
+    }
 
-if (!$secciRequest->isSuccessful()) {
+    if ($deliveryMethod == 'pdf') {
+        sendPdfResponse($secciRequest);
+    } elseif ($deliveryMethod == 'email') {
+        sendJsonResponse([
+            'success' => true,
+            'message' => 'SECCI-'.$secciRequest->getDocumentId().'.pdf has been sent to '.$emailAddress,
+        ]);
+    }
+} catch (\Exception $e) {
     sendJsonResponse([
         'success' => false,
-        'message' => 'SecciRequest not successful',
-    ]);
-}
-
-if ($deliveryMethod == 'pdf') {
-    sendPdfResponse($secciRequest);
-} elseif ($deliveryMethod == 'email') {
-    sendJsonResponse([
-        'success' => true,
-        'message' => 'SECCI-'.$secciRequest->getDocumentId().'.pdf has been sent to '.$emailAddress,
-    ]);
+        'message' => $e->getMessage(),
+    ], 500);
 }
