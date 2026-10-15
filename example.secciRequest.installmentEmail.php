@@ -67,7 +67,6 @@ $mbContent->setArray([
         'CountryCode' => 'DE',
     ],
     'Payment' => [
-        'Currency' => 'EUR',
         'Method' => 'INSTALLMENT',
         'Amount' => 230.00,
         'InstallmentDetails' => [

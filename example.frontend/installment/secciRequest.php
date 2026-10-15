@@ -93,7 +93,6 @@ $requestData = [
     ],
     'Secci' => $secci,
     'Payment' => [
-        'Currency' => 'EUR',
         'Method' => strtoupper($method),
         'Amount' => 2000.00,
     ],
