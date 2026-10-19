@@ -1,7 +1,7 @@
 {
   "name": "ratepay/php-sdk",
   "description": "Ratepay PHP SDK",
-  "version": "0.9.4.0",
+  "version": "1.0.0",
   "license": "MIT",
   "type": "library",
   "homepage": "https://docs.ratepay.com",
@@ -16,7 +16,7 @@
     }
   ],
   "require": {
-    "ratepay/php-library": "dev-master"
+    "ratepay/php-library": "2.0.0"
   },
   "minimum-stability": "dev"
 }

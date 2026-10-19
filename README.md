@@ -4,7 +4,7 @@
 |Module | Ratepay PHP SDK
 |------|----------
 |Author | Aarne Welschlau
-|Version | `0.9.4.0`
+|Version | `1.0.0`
 |Link | http://docs.ratepay.com
 |Mail | integration@ratepay.com
 
@@ -19,16 +19,19 @@ Find the basic usage of the different API calls and operations of the API librar
 ###### To run the examples, insert your (received by Ratepay Merchant Onboarding Team) credentials into 'ratepay_credentials.php'.
 Following table describes the basic (transaction-driven) operations in chronological order.
 
-|#|File|Operation/+*Subtype*|Information|Description|
-|-|-|-|-|-|
-|1|example.php|Payment Init|Head|Shows the basic functionality of the Ratepay library|
-|2|example.secciRequest.*.php|Secci Request|Head, shopping basket, secci, payment|Call to send consumer credit information to the customer|
-|3|example.paymentRequest.*.php|Payment Request|Head, customer, shopping basket, payment|Call for authorization. Different examples for all payment methods|
-|4|example.paymentChange.cancellation.php|Payment Change - *Cancellation*|Head, shopping basket|Informs Ratepay of a cancelled basket or article|
-|5|example.confirmationDeliver.php|Confirmation Deliver|Head, shopping basket|Informs Ratepay of a shipped basket or article|
-|6|example.paymentChange.return.php|Payment Change - *Return*|Head, shopping basket|Informs Ratepay of a returned basket or article|
-|7|example.paymentChange.changeOrder.php|Payment Change - *Change Order*|Head, shopping basket|Informs Ratepay of a totally changed shopping basket|
-|8|example.paymentChange.credit.php|Payment Change - *Credit*|Head, shopping basket|Informs Ratepay of a subsequent refund or fee|
+| #  | File                             | Operation/+*Subtype*                | Information                           | Description                                                                                                 |
+|----|----------------------------------|-------------------------------------|---------------------------------------|-------------------------------------------------------------------------------------------------------------|
+| 1  | example.php                      | Payment Init                        | Head                                  | Shows the basic functionality of the Ratepay library                                                        |
+| 2  | example.secciRequest.*.php       | Secci Request                       | Head, shopping basket, secci, payment | Call to send consumer credit information to the customer                                                    |
+| 3  | example.paymentRequest.*.php     | Payment Request                     | Head, customer, shopping basket, payment | Call for authorization. Different examples for all payment methods                                          |
+| 4  | example.paymentChange.cancellation.php | Payment Change - *Cancellation*     | Head, shopping basket                 | Informs Ratepay of a cancelled basket or article                                                            |
+| 5  | example.confirmationDeliver.php  | Confirmation Deliver                | Head, shopping basket                 | Informs Ratepay of a shipped basket or article                                                              |
+| 6  | example.paymentChange.return.php | Payment Change - *Return*           | Head, shopping basket                 | Informs Ratepay of a returned basket or article                                                             |
+| 7  | example.paymentChange.changeOrder.php | Payment Change - *Change Order*     | Head, shopping basket                 | Informs Ratepay of a totally changed shopping basket                                                        |
+| 8  | example.paymentChange.credit.php | Payment Change - *Credit*           | Head, shopping basket                 | Informs Ratepay of a subsequent refund or fee                                                               |
+| 9  | example.secciRequest.installmentEmail.php | SECCI Request - *Installment Email* | Head, shopping basket, payment, secci | generates SECCI information and attestation-token for paymentrequest and sends it via email for installment |
+| 10 | example.secciRequest.invoiceEmail.php | SECCI Request - *Invoice Email*     | Head, shopping basket, payment, secci     | generates SECCI information and attestation-token for paymentrequest and sends it via email for invoice     |
+| 11 | example.secciRequest.invoicePdfPrint.php | SECCI Request - *Invoice PDF*       | Head, shopping basket, payment, secci  | generates SECCI information and attestation-token for paymentrequest and provides PDF for invoice           |
 
 Following table describes optional and transaction-independent operations.
 
