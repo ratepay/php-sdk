@@ -22,12 +22,13 @@ Following table describes the basic (transaction-driven) operations in chronolog
 |#|File|Operation/+*Subtype*|Information|Description|
 |-|-|-|-|-|
 |1|example.php|Payment Init|Head|Shows the basic functionality of the Ratepay library|
-|2|example.paymentRequest.*.php|Payment Request|Head, customer, shopping basket, payment|Call for authorization. Different examples for all payment methods|
-|3|example.paymentChange.cancellation.php|Payment Change - *Cancellation*|Head, shopping basket|Informs Ratepay of a cancelled basket or article|
-|4|example.confirmationDeliver.php|Confirmation Deliver|Head, shopping basket|Informs Ratepay of a shipped basket or article|
-|5|example.paymentChange.return.php|Payment Change - *Return*|Head, shopping basket|Informs Ratepay of a returned basket or article|
-|6|example.paymentChange.changeOrder.php|Payment Change - *Change Order*|Head, shopping basket|Informs Ratepay of a totally changed shopping basket|
-|7|example.paymentChange.credit.php|Payment Change - *Credit*|Head, shopping basket|Informs Ratepay of a subsequent refund or fee|
+|2|example.secciRequest.*.php|Secci Request|Head, shopping basket, secci, payment|Call to send consumer credit information to the customer|
+|3|example.paymentRequest.*.php|Payment Request|Head, customer, shopping basket, payment|Call for authorization. Different examples for all payment methods|
+|4|example.paymentChange.cancellation.php|Payment Change - *Cancellation*|Head, shopping basket|Informs Ratepay of a cancelled basket or article|
+|5|example.confirmationDeliver.php|Confirmation Deliver|Head, shopping basket|Informs Ratepay of a shipped basket or article|
+|6|example.paymentChange.return.php|Payment Change - *Return*|Head, shopping basket|Informs Ratepay of a returned basket or article|
+|7|example.paymentChange.changeOrder.php|Payment Change - *Change Order*|Head, shopping basket|Informs Ratepay of a totally changed shopping basket|
+|8|example.paymentChange.credit.php|Payment Change - *Credit*|Head, shopping basket|Informs Ratepay of a subsequent refund or fee|
 
 Following table describes optional and transaction-independent operations.
 

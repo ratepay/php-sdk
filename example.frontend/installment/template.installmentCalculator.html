@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <title>Installment Calculator</title>
 
-    <link href="resources\style.css" media="all" rel="stylesheet" type="text/css" />
-    <!--<link href="https://www.ratepay.com/wp-content/themes/ratepay/build/css/common.css" media="all" rel="stylesheet" type="text/css" />-->
     <link href="resources/ratepay-bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
     <link href="resources/ratepay-style.css" media="all" rel="stylesheet" type="text/css" />
 
@@ -14,14 +12,15 @@
         var $rp = jQuery.noConflict(); // Prevent conflicts by creating an alias $rp to the jQuery function
 
         var rpInstallmentController = "installmentPlan.php"; // Path to installment plan controller (for HTTP request). Change path for your local implementation
+        var rpSecciController = "secciRequest.php"; // Path to SECCI request controller (for HTTP request). Change path for your local implementation
 
         var rpBankTransferAllowed = "{{ rp_paymentType_bankTransfer }}";
         var rpBankTransferFirstday = "{{ rp_paymentType_bankTransfer_firstday }}";
         var rpDirectDebitAllowed = "{{ rp_paymentType_directDebit }}";
         var rpDirectDebitFirstday = "{{ rp_paymentType_directDebit_firstday }}";
     </script>
-    <script language="JavaScript" src="resources/ratepay-installment.js"></script>
-    <script language="JavaScript" src="resources/ratepay-directdebit.js"></script>
+    <script language="JavaScript" src="resources/ratepay-installment.js" defer></script>
+    <script language="JavaScript" src="resources/ratepay-directdebit.js" defer></script>
 
 </head>
 <body>
@@ -119,8 +118,6 @@
 
     <div class="row rp-sepa-form">
         <form>
-            <input type="hidden" name="rp-payment-type" id="rp-payment-type" />
-
             <div class="form-group">
                 <label class="">{{ rp_account_holder }}</label>
                 <input type="text" class="form-control disabled" value="Alice Nobodyknows" disabled /><!-- Show account holder name = billing address firstname and lastname -->
@@ -157,6 +154,8 @@
     <div class="row small rp-payment-type-switch" id="rp-switch-payment-type-direct-debit">
         <a class="rp-link">{{ rp_switch_payment_type_direct_debit }}</a>
     </div>
+
+    [{ rp_include_secciv2 }]
 </div>
 
 </body>

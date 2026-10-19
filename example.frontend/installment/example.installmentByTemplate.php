@@ -6,6 +6,7 @@ require_once "../../ratepay_credentials.php";
 
 $orderAmount = 2000;
 $htmlStringOrTemplate = file_get_contents("template.installmentCalculator.html");
+$htmlStringOrTemplate = str_replace("[{ rp_include_secciv2 }]", "", $htmlStringOrTemplate);
 
 $ib = new RatePAY\Frontend\InstallmentBuilder(true); // true = sandbox mode
 $ib->setProfileId(PROFILE_ID);
